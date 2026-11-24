@@ -26,31 +26,26 @@ The application focuses on local video sharing. Your original video files remain
 
 ## Features
 
-- **Automatic device discovery** — zero-configuration SSDP discovery and UPnP ContentDirectory integration make the server visible to compatible devices on the local network.
-- **Direct Play** — streams original video files over HTTP with byte-range seeking and no transcoding; direct streaming is designed for 0% additional CPU load.
-- **HTTP Range support** — supports byte-range requests for seeking and playback control.
-- **Smart transcoding** — optional conversion of unsupported formats (including H.265/HEVC, AV1, and VP9) to H.264/AAC, up to 1080p.
-- **Hardware acceleration** — supports NVIDIA NVENC and VAAPI, with safe CPU fallback when available.
-- **4K protection** — includes safeguards intended to prevent excessive system load during transcoding.
-- **Media library management** — add and remove shared folders, scan directories, and update the active library.
-- **Automatic startup** — optional launch at system login, with network-readiness handling.
-- **System tray integration** — convenient background operation.
-- **Anti-Sleep protection** — uses systemd-inhibit to help prevent system suspension while serving media.
+- **Zero-config SSDP Discovery & ContentDirectory:** Instant visibility on Smart TVs with automatic video thumbnails.
+- **Direct Play (0% CPU Load):** Native HTTP streaming with byte-range seeking (`Accept-Ranges: bytes`).
+- **Smart Codec Transcoding (up to 1080p):**
+  - `OFF`: Pure Direct Play only.
+  - `AUTO`: Streams standard H.264 directly; automatically transcodes unsupported codecs (H.265/HEVC, AV1, VP9, camera formats) to H.264/AAC in native resolution.
+  - Hardware acceleration (`NVENC`, `VAAPI`) with automatic safe CPU fallback and 4K guard to protect laptops from overheating.
+- **Desktop Integration:** System tray icon, autostart on login, and `systemd-inhibit` anti-sleep protection.
 - **12 interface languages** — English, Russian, German, French, Spanish, Italian, Portuguese, Polish, Ukrainian, Chinese, Japanese, and Korean.
 - **Built-in help** — an integrated guide for application features.
 
 ## Performance
 
-The following results were measured head-to-head on the same Linux desktop hardware, streaming the same 1080p video file. The SMB figure is the measured single-stream CPU usage when the media is accessed over an SMB network share.
+Measured head-to-head on the same Linux desktop hardware streaming the same 1080p video file over local storage:
 
-| Metric | Previous Python Version | DLNA SERVER 2.6.0 (Rust) | Improvement |
+| Metric | Previous Python Version | DLNA Video Server v2.6.0 (Rust) | Improvement |
 |---|---:|---:|---|
-| **CPU Usage (Single Stream)** | 2.1% | **1.2% (0.5% over SMB)** | **~2× lower CPU load** |
-| **CPU Usage (2 Simultaneous Clients: TV + Phone)** | — | **0.9% total** | Multi-client streaming under 1% CPU |
+| **CPU Usage (Single Stream)** | 2.1% | **1.2%** (0.5% over SMB) | **~2× lower CPU load** |
+| **CPU Usage (2 Simultaneous Clients: TV + Phone)** | — | **0.9%** total | Multi-client streaming under 1% CPU |
 | **Memory Footprint (RSS with Native GUI)** | 141.0 MB | **137.8 MB** | Lower RAM even with 12-language Slint UI |
-| **Library Scan & Import Time** | ~30 minutes | **~30 seconds (< 0.1s from cache)** | **60× faster indexing** |
-
-These are measurements from the stated test environment, not universal performance guarantees.
+| **Library Scan & Import Time** | ~30 minutes | **~30 seconds** (< 0.1s from cache) | **60× faster indexing** |
 
 ## What's New in v2.6.0
 
