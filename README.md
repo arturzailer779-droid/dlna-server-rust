@@ -26,11 +26,11 @@ The application focuses on local video sharing. Your original video files remain
 
 ## Features
 
-- **Automatic device discovery** — SSDP discovery and UPnP ContentDirectory integration make the server visible to compatible devices on your local network.
-- **Direct Play** — streams original video files over HTTP without unnecessary transcoding.
+- **Automatic device discovery** — zero-configuration SSDP discovery and UPnP ContentDirectory integration make the server visible to compatible devices on the local network.
+- **Direct Play** — streams original video files over HTTP with byte-range seeking and no transcoding; direct streaming is designed for 0% additional CPU load.
 - **HTTP Range support** — supports byte-range requests for seeking and playback control.
-- **Smart transcoding** — optional conversion of unsupported formats to H.264/AAC, up to 1080p.
-- **Hardware acceleration** — supports NVIDIA NVENC and VAAPI, with automatic CPU fallback when available.
+- **Smart transcoding** — optional conversion of unsupported formats (including H.265/HEVC, AV1, and VP9) to H.264/AAC, up to 1080p.
+- **Hardware acceleration** — supports NVIDIA NVENC and VAAPI, with safe CPU fallback when available.
 - **4K protection** — includes safeguards intended to prevent excessive system load during transcoding.
 - **Media library management** — add and remove shared folders, scan directories, and update the active library.
 - **Automatic startup** — optional launch at system login, with network-readiness handling.
@@ -41,16 +41,24 @@ The application focuses on local video sharing. Your original video files remain
 
 ## Performance
 
-The following results were measured in a direct comparison on the same Linux desktop hardware, using the same 1080p video file and local storage.
+The following results were measured head-to-head on the same Linux desktop hardware, streaming the same 1080p video file. The SMB figure is the measured single-stream CPU usage when the media is accessed over an SMB network share.
 
-| Metric | Previous Python version | Rust 2.6.0 |
-|---|---:|---:|
-| CPU usage — one stream | 2.1% | **1.2%** |
-| CPU usage — two simultaneous clients | — | **0.9% total** |
-| Memory usage (RSS) | 141.0 MB | **137.8 MB** |
-| Library scan and import | ~30 minutes | **~30 seconds** |
+| Metric | Previous Python Version | DLNA SERVER 2.6.0 (Rust) | Improvement |
+|---|---:|---:|---|
+| **CPU Usage (Single Stream)** | 2.1% | **1.2% (0.5% over SMB)** | **~2× lower CPU load** |
+| **CPU Usage (2 Simultaneous Clients: TV + Phone)** | — | **0.9% total** | Multi-client streaming under 1% CPU |
+| **Memory Footprint (RSS with Native GUI)** | 141.0 MB | **137.8 MB** | Lower RAM even with 12-language Slint UI |
+| **Library Scan & Import Time** | ~30 minutes | **~30 seconds (< 0.1s from cache)** | **60× faster indexing** |
 
 These are measurements from the stated test environment, not universal performance guarantees.
+
+## What's New in v2.6.0
+
+- **Instant UI Controls:** Non-blocking server start/stop, background directory scanning, and off-thread native file dialogs for smooth Wayland/X11 responsiveness.
+- **Smart Auto-Broadcast on Boot:** Automatically waits for LAN/Wi-Fi readiness on system startup and goes on air when autostart is enabled.
+- **TV-Friendly Directory Sorting:** Folders are always listed first alphabetically, followed by video files alphabetically.
+- **Live Index Updates:** Removing a media folder immediately updates the active DLNA catalog without restarting the stream.
+- **12-Language UI & Built-In Help:** Instant switching between RU, EN, DE, FR, ES, IT, PT, PL, UK, ZH, JA, KO with a localized built-in guide.
 
 ## Installation
 
