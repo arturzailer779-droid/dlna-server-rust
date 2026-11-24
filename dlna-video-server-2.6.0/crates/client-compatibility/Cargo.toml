@@ -1,0 +1,8 @@
+[package]
+name = "dlna-client-compatibility"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+
+[dependencies]
+dlna-core = { path = "../core" }

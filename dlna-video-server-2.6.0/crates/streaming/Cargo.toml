@@ -1,0 +1,10 @@
+[package]
+name = "dlna-streaming"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+
+[dependencies]
+dlna-config = { path = "../config" }
+dlna-media-library = { path = "../media-library" }
+dlna-protocol = { path = "../dlna" }

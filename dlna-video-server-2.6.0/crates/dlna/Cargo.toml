@@ -1,0 +1,12 @@
+[package]
+name = "dlna-protocol"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+
+[dependencies]
+dlna-config = { path = "../config" }
+dlna-media-library = { path = "../media-library" }
+
+[target."cfg(unix)".dependencies]
+libc = "0.2"

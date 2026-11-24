@@ -1,0 +1,11 @@
+[package]
+name = "dlna-ui"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+
+[dependencies]
+slint = { version = "1.19", features = ["backend-winit", "unstable-winit-030"] }
+
+[dev-dependencies]
+i-slint-backend-testing = "1.19"
