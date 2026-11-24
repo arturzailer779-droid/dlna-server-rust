@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component type="desktop-application">
+  <id>io.github.dlna_server.DlnaVideoServer2</id>
+  <metadata_license>CC0-1.0</metadata_license>
+  <project_license>GPL-3.0-or-later</project_license>
+  <name>DLNA SERVER</name>
+  <summary>Share local video folders with DLNA-compatible TVs and devices</summary>
+  <developer_name>DLNA Video Server Contributors</developer_name>
+  <description>
+    <p>
+      DLNA SERVER is a desktop application for streaming local video libraries
+      over a home network to DLNA-compatible Smart TVs, mobile devices, and
+      media players.
+    </p>
+    <ul>
+      <li>Automatically discovers compatible devices on the local network.</li>
+      <li>Streams supported video files directly with HTTP range requests.</li>
+      <li>Can transcode unsupported video formats to H.264/AAC, with hardware
+          acceleration when available.</li>
+      <li>Provides a system tray interface and optional autostart.</li>
+    </ul>
+  </description>
+  <launchable type="desktop-id">dlna-video-server.desktop</launchable>
+  <icon type="stock">dlna-video-server</icon>
+  <categories>
+    <category>AudioVideo</category>
+    <category>Network</category>
+  </categories>
+  <provides>
+    <binary>dlna-video-server</binary>
+  </provides>
+  <releases>
+    <release version="2.6.0" date="2026-11-24" />
+  </releases>
+</component>
