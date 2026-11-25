@@ -29,7 +29,10 @@ impl Default for AppConfig {
     fn default() -> Self {
         Self {
             name: "DLNA VIDEO SERVER 2.0".into(),
-            icon: PathBuf::from("/usr/share/dlna-server/assets/logo_tv.png"),
+            icon: std::env::var_os("DLNA_SERVER_ASSET_DIR")
+                .map(PathBuf::from)
+                .unwrap_or_else(|| PathBuf::from("/usr/share/dlna-server/assets"))
+                .join("logo_tv.png"),
             port: 8208,
             uuid: generate_fallback_uuid(),
             playback_mode: "automatic".into(),

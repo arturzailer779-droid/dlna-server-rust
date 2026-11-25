@@ -30,7 +30,8 @@ impl Tray for AppTray {
     }
 
     fn icon_theme_path(&self) -> String {
-        "/usr/share/dlna-server/assets".into()
+        std::env::var("DLNA_SERVER_ASSET_DIR")
+            .unwrap_or_else(|_| "/usr/share/dlna-server/assets".into())
     }
 
     fn icon_pixmap(&self) -> Vec<Icon> {
@@ -85,7 +86,7 @@ pub fn spawn_tray(ui: slint::Weak<MainWindow>) {
         };
         rt.block_on(async move {
             let tray = AppTray { ui };
-            match tray.spawn().await {
+            match tray.assume_sni_available(true).spawn().await {
                 Ok(_handle) => {
                     std::future::pending::<()>().await;
                 }

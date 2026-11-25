@@ -57,7 +57,10 @@ fn main() -> Result<()> {
 
     config.autostart = dlna_platform::is_autostart_enabled();
 
-    let system_icon = PathBuf::from("/usr/share/dlna-server/assets/logo_tv.png");
+    let system_icon = std::env::var_os("DLNA_SERVER_ASSET_DIR")
+        .map(PathBuf::from)
+        .unwrap_or_else(|| PathBuf::from("/usr/share/dlna-server/assets"))
+        .join("logo_tv.png");
     if !config.icon.exists() && system_icon.exists() {
         config.icon = system_icon;
     }
@@ -113,11 +116,10 @@ fn main() -> Result<()> {
         let config_path = config_path.clone();
         ui.on_toggle_anti_sleep(move |enabled| {
             let Some(ui) = ui_weak.upgrade() else { return };
-            let mut real_enabled = enabled;
+            let real_enabled = enabled;
             if enabled {
                 let mut probe = dlna_platform::SleepInhibitor::acquire();
                 if !probe.is_active() {
-                    real_enabled = false;
                     ui.set_anti_sleep_enabled(false);
                     let mut settings = config.borrow_mut();
                     settings.anti_sleep = false;
