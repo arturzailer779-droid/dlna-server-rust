@@ -1,5 +1,7 @@
 use std::process::Command;
 
+pub mod pte;
+
 pub const SUBSYSTEM: &str = "transcoding";
 pub const ENABLED_BY_DEFAULT: bool = false;
 
@@ -10,7 +12,7 @@ pub struct TranscoderStatus {
     pub version_line: Option<String>,
 }
 
-/// Проверяет наличие внешнего движка только по запросу пользователя (ТЗ п. 3.3).
+/// Проверяет наличие внешнего движка только по запросу пользователя.
 /// Оригинальные файлы никогда не изменяются.
 pub fn probe_engine() -> TranscoderStatus {
     if let Ok(out) = Command::new("ffmpeg").arg("-version").output()
