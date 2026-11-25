@@ -3,6 +3,6 @@ Type=Application
 Name=DLNA VIDEO SERVER 2.0
 Comment=Lightweight local DLNA media server
 Exec=dlna-app
-Icon=io.github.dlna_server.DlnaVideoServer2
+Icon=io.github.arturzailer779_droid.DlnaVideoServer
 Categories=AudioVideo;Network;
 Terminal=false

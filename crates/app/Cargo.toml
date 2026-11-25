@@ -13,7 +13,6 @@ ksni = { version = "0.3", default-features = false, features = ["async-io"] }
 pollster = "0.4"
 tokio = { version = "1", features = ["rt", "time", "macros"] }
 image = { version = "0.25", default-features = false, features = ["png"] }
-dlna-core = { path = "../core" }
 dlna-config = { path = "../config" }
 dlna-diagnostics = { path = "../diagnostics" }
 dlna-media-library = { path = "../media-library" }

@@ -1,0 +1,45 @@
+app-id: io.github.arturzailer779_droid.DlnaVideoServer
+runtime: org.freedesktop.Platform
+runtime-version: '26.08'
+sdk: org.freedesktop.Sdk
+sdk-extensions:
+  - org.freedesktop.Sdk.Extension.rust-stable
+command: dlna-app
+
+finish-args:
+  - --share=network
+  - --share=ipc
+  - --socket=wayland
+  - --socket=fallback-x11
+  - --device=dri
+  - --filesystem=home
+  - --filesystem=/mnt:ro
+  - --filesystem=/media:ro
+  - --talk-name=org.kde.StatusNotifierWatcher
+  - --talk-name=org.freedesktop.portal.Desktop
+  - --talk-name=org.freedesktop.ScreenSaver
+  - --env=DLNA_SERVER_ASSET_DIR=/app/share/dlna-server/assets
+
+modules:
+  - name: dlna-video-server-2
+    buildsystem: simple
+
+    build-options:
+      append-path: /usr/lib/sdk/rust-stable/bin
+      env:
+        CARGO_HOME: /run/build/dlna-video-server-2/cargo
+        CARGO_NET_OFFLINE: 'true'
+
+    build-commands:
+      - cargo build --offline --release --package dlna-app --locked
+      - install -Dm755 target/release/dlna-app /app/bin/dlna-app
+      - install -Dm644 crates/ui/assets/brand_256.png /app/share/icons/hicolor/256x256/apps/io.github.arturzailer779_droid.DlnaVideoServer.png
+      - install -Dm644 crates/ui/assets/brand_128.png /app/share/icons/hicolor/128x128/apps/io.github.arturzailer779_droid.DlnaVideoServer.png
+      - install -Dm644 crates/ui/assets/brand_48.png /app/share/icons/hicolor/48x48/apps/io.github.arturzailer779_droid.DlnaVideoServer.png
+      - install -Dm644 crates/ui/assets/logo_tv.png /app/share/dlna-server/assets/logo_tv.png
+      - install -Dm644 packaging/flatpak/io.github.arturzailer779_droid.DlnaVideoServer.desktop /app/share/applications/io.github.arturzailer779_droid.DlnaVideoServer.desktop
+
+    sources:
+      - type: dir
+        path: ../..
+      - cargo-sources.json

@@ -1018,7 +1018,6 @@ version = "2.6.0"
 dependencies = [
  "anyhow",
  "dlna-config",
- "dlna-core",
  "dlna-diagnostics",
  "dlna-media-library",
  "dlna-network",
