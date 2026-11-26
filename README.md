@@ -25,14 +25,8 @@ The application focuses on local video sharing. Your original video files remain
 ![DLNA SERVER main window](docs/images/screen.png)
 
 ## Features
-
-- **Zero-config SSDP Discovery & ContentDirectory:** Instant visibility on Smart TVs with automatic video thumbnails.
-- **Direct Play (0% CPU Load):** Native HTTP streaming with byte-range seeking (`Accept-Ranges: bytes`).
-- **Smart Codec Transcoding (up to 1080p):**
-  - `OFF`: Pure Direct Play only.
   - `AUTO`: Streams standard H.264 directly; automatically transcodes unsupported codecs (H.265/HEVC, AV1, VP9, camera formats) to H.264/AAC in native resolution.
-  - Hardware acceleration (`NVENC`, `VAAPI`) with automatic safe CPU fallback and 4K guard to protect laptops from overheating.
-- **Desktop Integration:** System tray icon, autostart on login, and `systemd-inhibit` anti-sleep protection.
+ - **Desktop Integration:** System tray icon, autostart on login, and `systemd-inhibit` anti-sleep protection.
 - **12 interface languages** — English, Russian, German, French, Spanish, Italian, Portuguese, Polish, Ukrainian, Chinese, Japanese, and Korean.
 - **Built-in help** — an integrated guide for application features.
 
